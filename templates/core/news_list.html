@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Berita - SMK Nurul Jadid{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 150px;">
+    <div class="container">
+        <div class="section-header">
+            <h2>Berita Terbaru</h2>
+            <p>Ikuti perkembangan dan kegiatan terbaru di SMK Nurul Jadid</p>
+        </div>
+        
+        <div class="card-grid">
+            {% for news_item in news_list %}
+            <div class="card">
+                {% if news_item.image %}
+                <img src="{{ news_item.image.url }}" alt="{{ news_item.title }}" class="card-image">
+                {% else %}
+                <img src="https://via.placeholder.com/400x250/059669/ffffff?text=Berita" alt="{{ news_item.title }}" class="card-image">
+                {% endif %}
+                <div class="card-content">
+                    <h3>{{ news_item.title }}</h3>
+                    <p>{{ news_item.excerpt|truncatewords:15 }}</p>
+                    <small style="color: var(--text-light);">{{ news_item.created_at|date:"d F Y" }}</small>
+                    <br>
+                    <a href="{% url 'core:news_detail' news_item.slug %}" class="card-link">Baca Selengkapnya →</a>
+                </div>
+            </div>
+            {% empty %}
+            <p>Belum ada berita yang tersedia.</p>
+            {% endfor %}
+        </div>
+        
+        {% if is_paginated %}
+        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 3rem;">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn-primary" style="padding: 0.75rem 1.5rem;">← Sebelumnya</a>
+            {% endif %}
+            
+            <span style="padding: 0.75rem 1.5rem; background: var(--bg-light); border-radius: 8px;">
+                Halaman {{ page_obj.number }} dari {{ page_obj.paginator.num_pages }}
+            </span>
+            
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn-primary" style="padding: 0.75rem 1.5rem;">Selanjutnya →</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

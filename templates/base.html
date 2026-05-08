@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SMK Nurul Jadid{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="nav-left">
+                <a href="{% url 'core:home' %}" class="logo">
+                    <span class="logo-icon">🎓</span>
+                    <span class="logo-text">SMK Nurul Jadid</span>
+                </a>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="{% url 'core:home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Beranda</a></li>
+                
+                <li class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Profil ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'core:profile' %}">Tentang Sekolah</a></li>
+                        <li><a href="#">Visi & Misi</a></li>
+                        <li><a href="#">Struktur Organisasi</a></li>
+                        <li><a href="#">Fasilitas</a></li>
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Program ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'core:program_list' %}">Semua Program</a></li>
+                        <li><a href="{% url 'core:program_detail' 'rpl' %}">RPL</a></li>
+                        <li><a href="{% url 'core:program_detail' 'tkj' %}">TKJ</a></li>
+                        <li><a href="{% url 'core:program_detail' 'dkv' %}">DKV</a></li>
+                        <li><a href="{% url 'core:program_detail' 'dpb' %}">DPB</a></li>
+                        <li><a href="{% url 'core:program_detail' 'tplt' %}">TPLT</a></li>
+                        <li><a href="{% url 'core:program_detail' 'aphpi' %}">APHPI</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="{% url 'core:news_list' %}" class="nav-link {% if 'news' in request.resolver_match.url_name %}active{% endif %}">Berita</a></li>
+                <li><a href="{% url 'core:contact' %}" class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a></li>
+                <li><a href="https://psb.nuruljadid.net" class="btn-daftar" target="_blank">Daftar</a></li>
+                
+                {% if user.is_authenticated %}
+                <li class="dropdown user-dropdown">
+                    <a href="#" class="nav-link user-toggle">{{ user.username }} ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'accounts:profile' %}">Profil Saya</a></li>
+                        {% if user.is_staff %}
+                        <li><a href="/admin/">Admin Panel</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                <li><a href="{% url 'accounts:login' %}" class="btn-login">Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+            <button class="close-btn" onclick="this.parentElement.remove()">×</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>SMK Nurul Jadid</h3>
+                    <p>Mencetak generasi unggul, berkarakter, dan siap kerja di era digital.</p>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">YouTube</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Program Keahlian</h4>
+                    <ul>
+                        <li><a href="#">RPL</a></li>
+                        <li><a href="#">TKJ</a></li>
+                        <li><a href="#">DKV</a></li>
+                        <li><a href="#">DPB</a></li>
+                        <li><a href="#">TPLT</a></li>
+                        <li><a href="#">APHPI</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Kontak</h4>
+                    <ul>
+                        <li>📍 Alamat Sekolah</li>
+                        <li>📞 (0335) XXXXXX</li>
+                        <li>📧 info@nuruljadid.sch.id</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 SMK Nurul Jadid. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

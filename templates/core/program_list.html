@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Program Keahlian - SMK Nurul Jadid{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 150px;">
+    <div class="container">
+        <div class="section-header">
+            <h2>Program Keahlian</h2>
+            <p>Pilih jurusan yang sesuai dengan minat dan bakatmu</p>
+        </div>
+        
+        <div class="card-grid">
+            {% for program in programs %}
+            <div class="card">
+                {% if program.image %}
+                <img src="{{ program.image.url }}" alt="{{ program.name }}" class="card-image">
+                {% else %}
+                <img src="https://via.placeholder.com/400x250/2563eb/ffffff?text={{ program.name }}" alt="{{ program.name }}" class="card-image">
+                {% endif %}
+                <div class="card-content">
+                    <h3>{{ program.name }}</h3>
+                    <p>{{ program.description|truncatewords:20 }}</p>
+                    <a href="{% url 'core:program_detail' program.slug %}" class="card-link">Selengkapnya →</a>
+                </div>
+            </div>
+            {% empty %}
+            <p>Belum ada program yang tersedia.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

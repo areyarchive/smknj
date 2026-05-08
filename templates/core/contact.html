@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Kontak - SMK Nurul Jadid{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 150px;">
+    <div class="container">
+        <div class="section-header">
+            <h2>Hubungi Kami</h2>
+            <p>Punya pertanyaan? Kami siap membantu Anda</p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto;">
+            <!-- Contact Info -->
+            <div>
+                <h3 style="margin-bottom: 1.5rem;">Informasi Kontak</h3>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="margin-bottom: 0.5rem;">📍 Alamat</h4>
+                    <p style="color: var(--text-light); line-height: 1.8;">
+                        SMK Nurul Jadid<br>
+                        Jl. Pesantren Nurul Jadid<br>
+                        Paiton, Probolinggo<br>
+                        Jawa Timur
+                    </p>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="margin-bottom: 0.5rem;">📞 Telepon</h4>
+                    <p style="color: var(--text-light);">(0335) XXXXXX</p>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="margin-bottom: 0.5rem;">📧 Email</h4>
+                    <p style="color: var(--text-light);">info@nuruljadid.sch.id</p>
+                </div>
+                
+                <div>
+                    <h4 style="margin-bottom: 0.5rem;">🕐 Jam Operasional</h4>
+                    <p style="color: var(--text-light); line-height: 1.8;">
+                        Senin - Jumat: 07.00 - 16.00 WIB<br>
+                        Sabtu: 07.00 - 12.00 WIB
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div style="background: var(--bg-light); padding: 2rem; border-radius: 12px;">
+                <h3 style="margin-bottom: 1.5rem;">Kirim Pesan</h3>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="id_name" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Nama Lengkap *</label>
+                        {{ form.name }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_email" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Email *</label>
+                        {{ form.email }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_phone" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Telepon</label>
+                        {{ form.phone }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_subject" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Subjek *</label>
+                        {{ form.subject }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_message" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Pesan *</label>
+                        {{ form.message }}
+                    </div>
+                    
+                    <button type="submit" class="btn-primary" style="width: 100%; border: none; cursor: pointer;">Kirim Pesan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

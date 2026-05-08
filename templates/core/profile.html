@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Profil Sekolah - SMK Nurul Jadid{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 150px;">
+    <div class="container">
+        <div class="section-header">
+            <h2>Profil Sekolah</h2>
+            <p>Mengenal lebih dekat SMK Nurul Jadid</p>
+        </div>
+        
+        <div style="max-width: 900px; margin: 0 auto;">
+            {% if profile %}
+            {% if profile.image %}
+            <img src="{{ profile.image.url }}" alt="{{ profile.title }}" style="width: 100%; border-radius: 12px; margin-bottom: 2rem;">
+            {% endif %}
+            
+            <h1 style="margin-bottom: 1.5rem;">{{ profile.title }}</h1>
+            <div style="line-height: 1.8; color: var(--text-light); font-size: 1.1rem;">
+                {{ profile.content|linebreaks }}
+            </div>
+            {% else %}
+            <div style="background: var(--bg-light); padding: 3rem; border-radius: 12px;">
+                <h3 style="margin-bottom: 1rem;">Tentang SMK Nurul Jadid</h3>
+                <p style="margin-bottom: 1.5rem; line-height: 1.8;">
+                    SMK Nurul Jadid adalah sekolah menengah kejuruan yang berkomitmen untuk mencetak generasi unggul, 
+                    berkarakter, dan siap kerja di era digital. Dengan fasilitas modern dan tenaga pengajar profesional, 
+                    kami siap mengantarkan siswa-siswi menuju masa depan yang cerah.
+                </p>
+                
+                <h4 style="margin: 2rem 0 1rem;">Visi</h4>
+                <p style="margin-bottom: 1.5rem; line-height: 1.8;">
+                    Menjadi lembaga pendidikan vokasi terdepan yang menghasilkan lulusan kompeten, berakhlak mulia, 
+                    dan siap bersaing di dunia kerja global.
+                </p>
+                
+                <h4 style="margin: 2rem 0 1rem;">Misi</h4>
+                <ul style="line-height: 2; margin-bottom: 1.5rem;">
+                    <li>Menyelenggarakan pendidikan berkualitas dengan standar industri</li>
+                    <li>Mengembangkan potensi siswa secara optimal</li>
+                    <li>Menjalin kerjasama dengan dunia usaha dan industri</li>
+                    <li>Menanamkan nilai-nilai karakter dan akhlak mulia</li>
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

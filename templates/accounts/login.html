@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login - SMK Nurul Jadid{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 150px; min-height: 100vh;">
+    <div class="container">
+        <div style="max-width: 450px; margin: 0 auto; background: var(--bg-light); padding: 2.5rem; border-radius: 12px;">
+            <h2 style="text-align: center; margin-bottom: 0.5rem;">Login</h2>
+            <p style="text-align: center; color: var(--text-light); margin-bottom: 2rem;">Masuk ke akun Anda</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="id_username" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Username</label>
+                    {{ form.username }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_password" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Password</label>
+                    {{ form.password }}
+                </div>
+                
+                <button type="submit" class="btn-primary" style="width: 100%; border: none; cursor: pointer; padding: 1rem;">Login</button>
+            </form>
+            
+            <p style="text-align: center; margin-top: 1.5rem; color: var(--text-light);">
+                Belum punya akun? <a href="{% url 'accounts:register' %}" style="color: var(--primary-color); font-weight: 600;">Daftar sekarang</a>
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

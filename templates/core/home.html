@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Beranda - SMK Nurul Jadid{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container hero-content">
+        <h1>SMK Nurul Jadid</h1>
+        <p>Mencetak Generasi Unggul, Berkarakter, dan Siap Kerja di Era Digital</p>
+        <div class="hero-buttons">
+            <a href="https://psb.nuruljadid.net" class="btn-primary" target="_blank">Daftar Sekarang</a>
+            <a href="{% url 'core:program_list' %}" class="btn-secondary">Lihat Program</a>
+        </div>
+    </div>
+</section>
+
+<!-- Programs Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Program Keahlian</h2>
+            <p>Pilih jurusan yang sesuai dengan minat dan bakatmu untuk masa depan yang cerah</p>
+        </div>
+        
+        <div class="card-grid">
+            {% for program in programs %}
+            <div class="card">
+                {% if program.image %}
+                <img src="{{ program.image.url }}" alt="{{ program.name }}" class="card-image">
+                {% else %}
+                <img src="https://via.placeholder.com/400x250/2563eb/ffffff?text={{ program.name }}" alt="{{ program.name }}" class="card-image">
+                {% endif %}
+                <div class="card-content">
+                    <h3>{{ program.name }}</h3>
+                    <p>{{ program.description|truncatewords:20 }}</p>
+                    <a href="{% url 'core:program_detail' program.slug %}" class="card-link">Selengkapnya →</a>
+                </div>
+            </div>
+            {% empty %}
+            <p>Belum ada program yang tersedia.</p>
+            {% endfor %}
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="{% url 'core:program_list' %}" class="btn-primary" style="display: inline-block;">Lihat Semua Program</a>
+        </div>
+    </div>
+</section>
+
+<!-- News Section -->
+<section class="section" style="background: var(--bg-light);">
+    <div class="container">
+        <div class="section-header">
+            <h2>Berita Terbaru</h2>
+            <p>Ikuti perkembangan dan kegiatan terbaru di SMK Nurul Jadid</p>
+        </div>
+        
+        <div class="card-grid">
+            {% for news_item in news %}
+            <div class="card">
+                {% if news_item.image %}
+                <img src="{{ news_item.image.url }}" alt="{{ news_item.title }}" class="card-image">
+                {% else %}
+                <img src="https://via.placeholder.com/400x250/059669/ffffff?text=Berita" alt="{{ news_item.title }}" class="card-image">
+                {% endif %}
+                <div class="card-content">
+                    <h3>{{ news_item.title }}</h3>
+                    <p>{{ news_item.excerpt|truncatewords:15 }}</p>
+                    <small style="color: var(--text-light);">{{ news_item.created_at|date:"d F Y" }}</small>
+                    <br>
+                    <a href="{% url 'core:news_detail' news_item.slug %}" class="card-link">Baca Selengkapnya →</a>
+                </div>
+            </div>
+            {% empty %}
+            <p>Belum ada berita yang tersedia.</p>
+            {% endfor %}
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="{% url 'core:news_list' %}" class="btn-primary" style="display: inline-block;">Lihat Semua Berita</a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section">
+    <div class="container" style="text-align: center;">
+        <div style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); padding: 4rem 2rem; border-radius: 20px; color: white;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Siap Bergabung?</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">Mari bergabung bersama kami dan wujudkan impianmu!</p>
+            <a href="https://psb.nuruljadid.net" class="btn-primary" target="_blank">Daftar Sekarang</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
